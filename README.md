@@ -45,5 +45,25 @@ This project is built with:
 
 ## Demo Accounts:
 
-Manager: manager@inventory.com / manager123
-Store Keeper: keeper@inventory.com / keeper123
+- Manager: manager@inventory.com / manager123
+- Store Keeper: keeper@inventory.com / keeper123
+
+
+## Screenshots:
+
+**Light mode Screenshots**
+
+![Login](public/img/Login-Light.png)
+![Dashboard](public/img/Dashboard-Light.png)
+![Products](public/img/Products-Light.png)
+![Add Product](public/img/AddProduct-Light.png)
+![Footer](public/img/Footer-Light.png)
+
+
+**Dark mode Screenshots**
+
+![Login](public/img/Login-Dark.png)
+![Dashboard](public/img/Dashboard-Dark.png)
+![Products](public/img/Products-Dark.png)
+![Add Product](public/img/AddProduct-Dark.png)
+![Footer](public/img/Footer-Dark.png)
