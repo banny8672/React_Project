@@ -1,12 +1,11 @@
-
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, LogOut } from 'lucide-react';
-import { Search } from "lucide-react";
+import { Moon, Sun, LogOut, Search } from 'lucide-react';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,6 +14,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const isMobile = useIsMobile();
 
   if (!user) {
     return <>{children}</>;
@@ -25,11 +25,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <header className="dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-2 sm:space-x-8">
               <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">Bitstore</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">Bitstore</h1>
               </div>
-              <div className="flex items-center space-x-4"> {/* Add ml-4 here */}
+              <div className="hidden sm:flex items-center space-x-4">
                 <div className="relative w-full max-w-xs">
                   <input
                     type="text"
@@ -44,11 +44,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   Search
                 </Button>
               </div>
-
             </div>
 
-            <div className="flex items-center space-x-4">
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="hidden sm:block text-sm text-gray-600 dark:text-gray-300">
                 <span className="font-medium">{user.name}</span>
                 <span className="ml-2 px-2 py-1 text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 rounded-full">
                   {user.role}
@@ -60,8 +59,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </Button>
 
               <Button variant="ghost" size="sm" onClick={logout} className="text-gray-600 dark:text-gray-300">
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
+                <LogOut className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Logout</span>
               </Button>
             </div>
           </div>
@@ -70,7 +69,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <div className="flex flex-1 min-h-0">
         <Sidebar />
-        <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-auto">
+        <main className="flex-1 max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-8 overflow-auto">
           {children}
         </main>
       </div>
@@ -79,6 +78,5 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     </div>
   );
 };
-
 
 export default Layout;

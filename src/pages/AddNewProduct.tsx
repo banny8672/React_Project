@@ -10,6 +10,7 @@ import {
   Upload,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function AddNewProduct() {
   const [formData, setFormData] = useState({
@@ -23,6 +24,7 @@ export default function AddNewProduct() {
   });
   const [previewImage, setPreviewImage] = useState(null);
   const [thumbnailImage, setThumbnailImage] = useState(null);
+  const isMobile = useIsMobile();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +77,6 @@ export default function AddNewProduct() {
     input.click();
   };
 
-
   const handleSave = () => {
     console.log('Product saved:', formData);
     alert('Product saved successfully!');
@@ -95,68 +96,38 @@ export default function AddNewProduct() {
     setThumbnailImage(null);
   };
 
-  const sidebarItems = [
-    { icon: Home, label: 'Home', hasSubmenu: true },
-    { icon: BarChart3, label: 'Dashboard', hasSubmenu: true },
-    {
-      icon: Package, label: 'Store', hasSubmenu: true,
-      submenu: [
-        { label: 'Product', active: true },
-        { label: 'Add Product' }
-      ]
-    },
-    {
-      icon: BarChart3, label: 'Analytics', hasSubmenu: true,
-      submenu: [
-        { label: 'Traffic' },
-        { label: 'Earning' }
-      ]
-    },
-    { icon: DollarSign, label: 'Finances', hasSubmenu: true },
-    { icon: CreditCard, label: 'Payment', hasSubmenu: false },
-    {
-      icon: Settings, label: 'Account Setting', hasSubmenu: true,
-      submenu: [
-        { label: 'My Profile' },
-        { label: 'Security' }
-      ]
-    },
-    { icon: HelpCircle, label: 'Help And Support', hasSubmenu: true }
-  ];
-
   return (
-    <div className="flex ">
+    <div className="flex">
       <div className="flex-1 overflow-auto">
-
         <div>
           <div className="rounded-lg shadow-sm">
-            <Card className="flex items-center justify-between dark:text-white p-4">
-              <h2 className="text-xl font-semibold ">Add New Product</h2>
-              <div className="flex space-x-3">
+            <Card className="flex flex-col sm:flex-row items-center justify-between dark:text-white p-2 sm:p-4 gap-2 sm:gap-0">
+              <h2 className="text-lg sm:text-xl font-semibold">Add New Product</h2>
+              <div className="flex space-x-2 sm:space-x-3">
                 <button
                   onClick={handleDiscardChanges}
-                  className="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50"
+                  className="px-2 sm:px-4 py-1 sm:py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 text-sm sm:text-base"
                 >
-                  Discard Change
+                  {isMobile ? "Discard" : "Discard Change"}
                 </button>
                 <button
                   onClick={handleSave}
-                  className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+                  className="px-2 sm:px-4 py-1 sm:py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm sm:text-base"
                 >
                   Save
                 </button>
               </div>
             </Card>
 
-            <Card className="p-4 my-4">
+            <Card className="p-2 sm:p-4 my-4">
               <CardContent>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+                  <div className="lg:col-span-2 space-y-4 sm:space-y-6">
                     <div>
-                      <h3 className="text-lg font-medium mb-4">General Information</h3>
-                      <div className="space-y-4">
+                      <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">General Information</h3>
+                      <div className="space-y-3 sm:space-y-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">Product Name</label>
+                          <label className="block text-sm font-medium mb-1 sm:mb-2">Product Name</label>
                           <input
                             type="text"
                             name="productName"
@@ -167,7 +138,7 @@ export default function AddNewProduct() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Product Category</label>
+                          <label className="block text-sm font-medium mb-1 sm:mb-2">Product Category</label>
                           <select
                             name="category"
                             value={formData.category}
@@ -182,24 +153,24 @@ export default function AddNewProduct() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Description</label>
+                          <label className="block text-sm font-medium mb-1 sm:mb-2">Description</label>
                           <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleInputChange}
                             placeholder="Description"
-                            rows={4}
+                            rows={isMobile ? 3 : 4}
                             className="pl-2 pr-3 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Tag Keywords</label>
+                          <label className="block text-sm font-medium mb-1 sm:mb-2">Tag Keywords</label>
                           <textarea
                             name="tags"
                             value={formData.tags}
                             onChange={handleInputChange}
                             placeholder="Tag Keywords"
-                            rows={3}
+                            rows={isMobile ? 2 : 3}
                             className="pl-2 pr-3 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                           />
                         </div>
@@ -207,10 +178,10 @@ export default function AddNewProduct() {
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-medium mb-4">Pricing</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">Pricing</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">Price</label>
+                          <label className="block text-sm font-medium mb-1 sm:mb-2">Price</label>
                           <input
                             type="number"
                             name="price"
@@ -221,7 +192,7 @@ export default function AddNewProduct() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Discount</label>
+                          <label className="block text-sm font-medium mb-1 sm:mb-2">Discount</label>
                           <input
                             type="number"
                             name="discount"
@@ -231,8 +202,8 @@ export default function AddNewProduct() {
                             className="pl-2 pr-3 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                           />
                         </div>
-                        <div className="md:col-span-2">
-                          <label className="block text-sm font-medium mb-2">Discount Category</label>
+                        <div className="sm:col-span-2">
+                          <label className="block text-sm font-medium mb-1 sm:mb-2">Discount Category</label>
                           <select
                             name="discountCategory"
                             value={formData.discountCategory}
@@ -249,42 +220,42 @@ export default function AddNewProduct() {
                     </div>
                   </div>
 
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div>
-                      <h3 className="text-lg font-medium mb-2">Preview Product</h3>
-                      <p className="text-sm text-gray-500 mb-4">Drag And Your Image Here</p>
+                      <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2">Preview Product</h3>
+                      <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-4">Drag And Your Image Here</p>
                       <div
-                        className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 cursor-pointer transition-colors"
+                        className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-8 text-center hover:border-blue-400 cursor-pointer transition-colors"
                         onDrop={(e) => handleImageDrop(e, 'preview')}
                         onDragOver={(e) => e.preventDefault()}
                         onClick={() => handleImageClick('preview')}
                       >
                         {previewImage ? (
-                          <img src={previewImage} alt="Preview" className="w-full h-48 object-cover rounded-lg" />
+                          <img src={previewImage} alt="Preview" className="w-full h-32 sm:h-48 object-cover rounded-lg" />
                         ) : (
-                          <div className="space-y-4">
-                            <Upload className="w-12 h-12 text-gray-400 mx-auto" />
-                            <p className="text-gray-500">Drag and drop here</p>
+                          <div className="space-y-2 sm:space-y-4">
+                            <Upload className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto" />
+                            <p className="text-gray-500 text-sm">Drag and drop here</p>
                           </div>
                         )}
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-medium text-gray-800 mb-2">Thumbnail Product</h3>
-                      <p className="text-sm text-gray-500 mb-4">Drag And Your Image Here</p>
+                      <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-1 sm:mb-2">Thumbnail Product</h3>
+                      <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-4">Drag And Your Image Here</p>
                       <div
-                        className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 cursor-pointer transition-colors"
+                        className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-8 text-center hover:border-blue-400 cursor-pointer transition-colors"
                         onDrop={(e) => handleImageDrop(e, 'thumbnail')}
                         onDragOver={(e) => e.preventDefault()}
                         onClick={() => handleImageClick('thumbnail')}
                       >
                         {thumbnailImage ? (
-                          <img src={thumbnailImage} alt="Thumbnail" className="w-full h-48 object-cover rounded-lg" />
+                          <img src={thumbnailImage} alt="Thumbnail" className="w-full h-32 sm:h-48 object-cover rounded-lg" />
                         ) : (
-                          <div className="space-y-4">
-                            <Upload className="w-12 h-12 text-gray-400 mx-auto" />
-                            <p className="text-gray-500">Drag and drop here</p>
+                          <div className="space-y-2 sm:space-y-4">
+                            <Upload className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto" />
+                            <p className="text-gray-500 text-sm">Drag and drop here</p>
                           </div>
                         )}
                       </div>
@@ -295,7 +266,6 @@ export default function AddNewProduct() {
             </Card>
           </div>
         </div>
-
       </div>
     </div>
   );
