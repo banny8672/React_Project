@@ -49,7 +49,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </div>
 
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <div className="hidden sm:block text-sm text-gray-600 dark:text-gray-300">
+              <div className="hidden sm:block text-sm text-gray-600 dark:text-gray-300 w-[380px]">
                 <span className="font-medium">{user.name}</span>
                 <span className="ml-2 px-2 py-1 text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 rounded-full">
                   {user.role}

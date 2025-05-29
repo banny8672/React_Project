@@ -54,12 +54,12 @@ const defaultRolePermissions: RolePermission[] = [
     pages: ['dashboard', 'products', 'users', 'add-product']
   },
   {
-    id: 'keeper-1',
+    id: 'store-1-keeper',
     name: 'Keeper 1',
     pages: ['products', 'add-product']
   },
   {
-    id: 'keeper-2',
+    id: 'store-2-keeper',
     name: 'Keeper 2',
     pages: ['products', 'add-product']
   }
@@ -73,7 +73,7 @@ const mockUsers: Record<string, { password: string; user: User }> = {
       id: '1',
       email: 'manager@inventory.com',
       role: 'Manager',
-      name: 'Banny Manager',
+      name: 'Banny',
       store: 'all'
     }
   },
@@ -83,7 +83,7 @@ const mockUsers: Record<string, { password: string; user: User }> = {
       id: '4',
       email: 'store1@inventory.com',
       role: 'store-1-admin',
-      name: 'Store 1 Admin',
+      name: 'admin-1',
       store: 'Store-1'
     }
   },
@@ -93,7 +93,7 @@ const mockUsers: Record<string, { password: string; user: User }> = {
       id: '5',
       email: 'store2@inventory.com',
       role: 'store-2-admin',
-      name: 'Store 2 Admin',
+      name: 'admin-2',
       store: 'Store-2'
     }
   },
@@ -102,7 +102,7 @@ const mockUsers: Record<string, { password: string; user: User }> = {
     user: {
       id: '6',
       email: 'keeper1@inventory.com',
-      role: 'keeper-1',
+      role: 'store-1-keeper',
       name: 'Keeper 1',
       store: 'Store-1'
     }
@@ -112,7 +112,7 @@ const mockUsers: Record<string, { password: string; user: User }> = {
     user: {
       id: '7',
       email: 'keeper2@inventory.com',
-      role: 'keeper-2',
+      role: 'store-2-keeper',
       name: 'Keeper 2',
       store: 'Store-2'
     }
@@ -186,13 +186,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 
     if (!rolePermission) {
-      console.log(`No role permission found for role: ${user.role}`);
       return false;
     }
 
     // Check if the page is in the allowed pages for this role
     const hasPageAccess = rolePermission.pages.includes(pageId);
-    console.log(`User role: ${user.role}, Page: ${pageId}, Access: ${hasPageAccess}`);
     return hasPageAccess;
   };
 
@@ -317,39 +315,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Function to check if user can access a specific store's products
   const canAccessStore = (store: string): boolean => {
     if (!user) return false;
-    
+
     // Only manager role can access store selection
     if (store === 'store-selection') {
       return user.role.toLowerCase() === 'manager';
     }
-    
+
     // Managers with 'all' store access can see all products
     if (user.store === 'all') return true;
-    
+
     // Store admins can access their assigned store
     if (user.role.toLowerCase().includes('admin') && user.store === store) {
       return true;
     }
-    
+
     // Keepers can access their assigned store
     if (user.role.toLowerCase().includes('keeper') && user.store === store) {
       return true;
     }
-    
+
     // Users can only see products from their assigned store
     return user.store === store;
   };
-  
+
   // Function to check if user can edit another user
   const canEditUser = (targetUserId: string): boolean => {
     if (!user) return false;
-    
+
     // Manager can edit anyone
     if (user.role.toLowerCase() === 'manager') return true;
-    
+
     // Store admins cannot edit themselves
     if (user.id === targetUserId) return false;
-    
+
     // By default, return false for safety
     return false;
   };

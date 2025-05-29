@@ -46,13 +46,13 @@ const initialRoles = [
     pages: ['products', 'add-product', 'users']
   },
   {
-    id: 'keeper-1',
+    id: 'store-1-keeper',
     name: 'Store-1-Keeper',
     description: 'Access to product management',
     pages: ['products', 'add-product']
   },
   {
-    id: 'keeper-2',
+    id: 'store-2-keeper',
     name: 'Store-2-Keeper',
     description: 'Access to product management',
     pages: ['products', 'add-product']

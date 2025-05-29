@@ -60,9 +60,9 @@ const Users = () => {
 
     // Set store based on role if it's a store-specific role
     let store = formData.store;
-    if (formData.role === 'store-1-admin' || formData.role === 'keeper-1') {
+    if (formData.role === 'store-1-admin' || formData.role === 'store-1-keeper') {
       store = 'Store-1';
-    } else if (formData.role === 'store-2-admin' || formData.role === 'keeper-2') {
+    } else if (formData.role === 'store-2-admin' || formData.role === 'store-2-keeper') {
       store = 'Store-2';
     }
 
@@ -124,9 +124,9 @@ const Users = () => {
 
     // Set store based on role if it's a store-specific role
     let store = formData.store;
-    if (formData.role === 'store-1-admin' || formData.role === 'keeper-1') {
+    if (formData.role === 'store-1-admin' || formData.role === 'store-1-keeper') {
       store = 'Store-1';
-    } else if (formData.role === 'store-2-admin' || formData.role === 'keeper-2') {
+    } else if (formData.role === 'store-2-admin' || formData.role === 'store-2-keeper') {
       store = 'Store-2';
     }
 
@@ -263,10 +263,10 @@ const Users = () => {
                         <option value="store-1-admin">Store 1 Admin</option>
                         <option value="store-2-admin">Store 2 Admin</option>
                         <optgroup label="Store 1">
-                          <option value="keeper-1">Keeper 1</option>
+                          <option value="store-1-keeper">Keeper 1</option>
                         </optgroup>
                         <optgroup label="Store 2">
-                          <option value="keeper-2">Keeper 2</option>
+                          <option value="store-2-keeper">Keeper 2</option>
                         </optgroup>
                       </>
                     )}
@@ -275,7 +275,7 @@ const Users = () => {
                     {currentUser?.role.toLowerCase() === 'store-1-admin' && (
                       <>
                         <optgroup label="Store 1">
-                          <option value="keeper-1">Keeper 1</option>
+                          <option value="store-1-keeper">Keeper 1</option>
                         </optgroup>
                       </>
                     )}
@@ -284,7 +284,7 @@ const Users = () => {
                     {currentUser?.role.toLowerCase() === 'store-2-admin' && (
                       <>
                         <optgroup label="Store 2">
-                          <option value="keeper-2">Keeper 2</option>
+                          <option value="store-2-keeper">Keeper 2</option>
                         </optgroup>
                       </>
                     )}
@@ -354,10 +354,10 @@ const Users = () => {
                         <option value="store-1-admin">Store 1 Admin</option>
                         <option value="store-2-admin">Store 2 Admin</option>
                         <optgroup label="Store 1">
-                          <option value="keeper-1">Keeper 1</option>
+                          <option value="store-1-keeper">Keeper 1</option>
                         </optgroup>
                         <optgroup label="Store 2">
-                          <option value="keeper-2">Keeper 2</option>
+                          <option value="store-2-keeper">Keeper 2</option>
                         </optgroup>
                       </>
                     )}
@@ -366,7 +366,7 @@ const Users = () => {
                     {currentUser?.role.toLowerCase() === 'store-1-admin' && (
                       <>
                         <optgroup label="Store 1">
-                          <option value="keeper-1">Keeper 1</option>
+                          <option value="store-1-keeper">Keeper 1</option>
                         </optgroup>
                       </>
                     )}
@@ -375,7 +375,7 @@ const Users = () => {
                     {currentUser?.role.toLowerCase() === 'store-2-admin' && (
                       <>
                         <optgroup label="Store 2">
-                          <option value="keeper-2">Keeper 2</option>
+                          <option value="store-2-keeper">Keeper 2</option>
                         </optgroup>
                       </>
                     )}
