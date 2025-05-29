@@ -158,7 +158,7 @@ export default function EditProduct() {
               <h2 className="text-2xl font-bold mb-4">Product Not Found</h2>
               <p className="mb-6">The product you are looking for does not exist.</p>
               <Button onClick={() => navigate('/products')}>
-                Back to Products
+                {translations.backToProducts}
               </Button>
             </div>
           </CardContent>
@@ -174,7 +174,7 @@ export default function EditProduct() {
         onClick={() => navigate('/products')}
         className="mb-4"
       >
-        Back to Products
+        {translations.backToProducts}
       </Button>
 
       <Card>

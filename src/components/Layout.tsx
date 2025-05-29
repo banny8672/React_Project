@@ -35,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <div className="relative w-full max-w-xs">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder={translations.search + "..."}
                     className="pl-2 pr-3 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                   />
                   <span className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -43,7 +43,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </span>
                 </div>
                 <Button size="sm" className='bg-blue-700 hover:bg-blue-800 dark:bg-purple-700'>
-                  Search
+                  {translations.search}
                 </Button>
               </div>
             </div>
@@ -62,7 +62,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
               <Button variant="ghost" size="sm" onClick={logout} className="text-gray-600 dark:text-gray-300">
                 <LogOut className="w-4 h-4 sm:mr-2" />
-                <span className="hidden sm:inline">Logout</span>
+                <span className="hidden sm:inline">{translations.logout}</span>
               </Button>
 
               <select

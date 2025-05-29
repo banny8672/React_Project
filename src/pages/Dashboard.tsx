@@ -7,6 +7,8 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useContext } from 'react';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 // Static data - could be moved to a separate file if used elsewhere
 const data = [
@@ -54,6 +56,7 @@ const COLORS = {
 export default function Dashboard() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { translations } = useContext(LanguageContext);
 
   // Stat cards data
   const statCards = [
@@ -66,14 +69,14 @@ export default function Dashboard() {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-wrap justify-between items-center gap-2 sm:gap-4">
-        <h1 className="text-xl sm:text-2xl font-semibold">Dashboard</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold">{translations.dashboard}</h1>
         <Button 
           className="bg-purple-500 hover:bg-purple-600 flex items-center gap-2 text-sm sm:text-base" 
           onClick={() => navigate('/add-product')}
           size={isMobile ? "sm" : "default"}
         >
           <Plus size={isMobile ? 14 : 16} />
-          {isMobile ? "Add" : "Add New Product"}
+          {isMobile ? translations.add : translations.addNewProduct}
         </Button>
       </div>
 

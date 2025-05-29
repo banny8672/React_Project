@@ -76,7 +76,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
   useEffect(() => {
     // Load products from localStorage or use initial products
     const storedProducts = localStorage.getItem('inventory_products');
-    if (storedProducts !== '[]') {
+    if (storedProducts) {
       const parsedProducts = JSON.parse(storedProducts).map((p: Product) => ({
         ...p,
         createdAt: new Date(p.createdAt),

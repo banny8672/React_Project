@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Upload } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '@/contexts/ProductContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 export default function AddNewProduct() {
   const { user } = useAuth();
+  const { translations } = useContext(LanguageContext);
   const [formData, setFormData] = useState({
     productName: '',
     category: '',
@@ -122,19 +124,19 @@ export default function AddNewProduct() {
         <div>
           <div className="rounded-lg shadow-sm">
             <Card className="flex flex-col sm:flex-row items-center justify-between dark:text-white p-2 sm:p-4 gap-2 sm:gap-0">
-              <h2 className="text-lg sm:text-xl font-semibold">Add New Product</h2>
+              <h2 className="text-lg sm:text-xl font-semibold">{translations.addNewProduct}</h2>
               <div className="flex space-x-2 sm:space-x-3">
                 <button
                   onClick={handleDiscardChanges}
                   className="px-2 sm:px-4 py-1 sm:py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 text-sm sm:text-base"
                 >
-                  {isMobile ? "Discard" : "Discard Change"}
+                  {isMobile ? translations.discard : translations.discardChange}
                 </button>
                 <button
                   onClick={handleSave}
                   className="px-2 sm:px-4 py-1 sm:py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm sm:text-base"
                 >
-                  Save
+                  {translations.save}
                 </button>
               </div>
             </Card>
@@ -144,7 +146,7 @@ export default function AddNewProduct() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
                   <div className="lg:col-span-2 space-y-4 sm:space-y-6">
                     <div>
-                      <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">General Information</h3>
+                      <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{translations.generalInformation}</h3>
                       <div className="space-y-3 sm:space-y-4">
                         <div>
                           <label className="block text-sm font-medium mb-1 sm:mb-2">Product Name</label>
@@ -216,7 +218,7 @@ export default function AddNewProduct() {
                     </div>
 
                     <div>
-                      <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">Pricing</h3>
+                      <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-4">{translations.pricing}</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                           <label className="block text-sm font-medium mb-1 sm:mb-2">Price</label>
@@ -260,7 +262,7 @@ export default function AddNewProduct() {
 
                   <div className="space-y-4 sm:space-y-6">
                     <div>
-                      <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2">Preview Product</h3>
+                      <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2">{translations.previewProduct}</h3>
                       <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-4">Drag And Your Image Here</p>
                       <div
                         className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-8 text-center hover:border-blue-400 cursor-pointer transition-colors"
@@ -280,7 +282,7 @@ export default function AddNewProduct() {
                     </div>
 
                     <div>
-                      <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-1 sm:mb-2">Thumbnail Product</h3>
+                      <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-1 sm:mb-2">{translations.thumbnailProduct}</h3>
                       <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-4">Drag And Your Image Here</p>
                       <div
                         className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-8 text-center hover:border-blue-400 cursor-pointer transition-colors"

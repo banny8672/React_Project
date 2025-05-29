@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Table, TableHead, TableHeader, TableRow, TableBody, TableCell } from "@/components/ui/table";
-import { Plus, Search, Filter, Download, Trash2 } from "lucide-react";
+import { Plus, Search, Filter, Download, Trash2, Trash, Pencil } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { LanguageContext } from '@/contexts/LanguageContext';
@@ -27,13 +27,13 @@ export default function ProductTableComponent() {
 
   useEffect(() => {
     // Filter products based on search term and user's store access
-    const filtered = products.filter(product => 
+    const filtered = products.filter(product =>
       // First check if user can access this store's products
-      canAccessStore(product.store) && 
+      canAccessStore(product.store) &&
       // Then apply search filter
       (product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       product.description.toLowerCase().includes(searchTerm.toLowerCase()))
+        product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase()))
     );
     setFilteredProducts(filtered);
   }, [products, searchTerm, user, canAccessStore]);
@@ -48,10 +48,10 @@ export default function ProductTableComponent() {
       setSelected(prev => prev.filter(pid => pid !== id));
     }
   };
-  
+
   const handleBulkDelete = () => {
     if (selected.length === 0) return;
-    
+
     if (window.confirm(`Are you sure you want to delete ${selected.length} selected product(s)?`)) {
       selected.forEach(id => deleteProduct(id));
       setSelected([]);
@@ -68,14 +68,14 @@ export default function ProductTableComponent() {
           size={isMobile ? "sm" : "default"}
         >
           <Plus size={isMobile ? 14 : 16} />
-          {isMobile ? "Add" : "Add New Product"}
+          {isMobile ? translations.add : translations.addNewProduct}
         </Button>
       </div>
 
       <Tabs defaultValue="published" onValueChange={setTab}>
         <TabsList className="mb-4 w-full sm:w-auto">
-          <TabsTrigger value="published" className="flex-1 sm:flex-none">Published</TabsTrigger>
-          <TabsTrigger value="draft" className="flex-1 sm:flex-none">Draft</TabsTrigger>
+          <TabsTrigger value="published" className="flex-1 sm:flex-none">{translations.published}</TabsTrigger>
+          <TabsTrigger value="draft" className="flex-1 sm:flex-none">{translations.draft}</TabsTrigger>
         </TabsList>
 
         <TabsContent value={tab}>
@@ -84,35 +84,33 @@ export default function ProductTableComponent() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-4">
                 <div className="relative w-full sm:w-1/3 mb-2 sm:mb-0">
                   <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-                  <Input 
-                    placeholder="Search products..." 
-                    className="pl-8" 
+                  <Input
+                    placeholder={translations.searchProducts}
+                    className="pl-8"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <div className="flex space-x-2 w-full sm:w-auto justify-end">
                   {selected.length > 0 && (
-                    <Button 
-                      variant="destructive" 
-                      size={isMobile ? "sm" : "default"}
+                    <Button
+                      variant="destructive"
+                      size="sm"
                       onClick={handleBulkDelete}
-                      className="flex items-center gap-1"
                     >
-                      <Trash2 size={isMobile ? 14 : 16} />
-                      Delete ({selected.length})
+                      <Trash className="h-4 w-4" />
                     </Button>
                   )}
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size={isMobile ? "sm" : "default"}
                     className="flex items-center gap-1"
                   >
                     <Filter size={isMobile ? 14 : 16} />
                     {!isMobile && "Filter"}
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size={isMobile ? "sm" : "default"}
                     className="flex items-center gap-1"
                   >
@@ -145,7 +143,7 @@ export default function ProductTableComponent() {
                     {filteredProducts.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={6} className="text-center py-8">
-                          {products.length === 0 
+                          {products.length === 0
                             ? "No products found. Click \"Add New Product\" to create one."
                             : "No products match your search criteria."}
                         </TableCell>
@@ -171,21 +169,15 @@ export default function ProductTableComponent() {
                           </TableCell>
                           <TableCell>
                             <div className="flex space-x-1 sm:space-x-2">
-                              <Button 
-                                size="sm" 
-                                variant="outline" 
-                                className="px-2 sm:px-4"
-                                onClick={() => navigate(`/edit-product/${product.id}`)}
-                              >
-                                {isMobile ? "E" : "Edit"}
+                              <Button variant="outline" size="icon" onClick={() => navigate(`/edit-product/${product.id}`)}>
+                                <Pencil className="h-4 w-4" />
                               </Button>
-                              <Button 
-                                size="sm" 
-                                variant="outline" 
-                                className="px-2 sm:px-4"
+                              <Button
+                                variant="destructive"
+                                size="sm"
                                 onClick={() => handleDelete(product.id)}
                               >
-                                {isMobile ? "D" : "Delete"}
+                                <Trash className="h-4 w-4" />
                               </Button>
                             </div>
                           </TableCell>

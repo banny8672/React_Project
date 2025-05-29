@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import { useAuth, User } from '@/contexts/AuthContext';
+import { LanguageContext } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 const Users = () => {
   const { users, addUser, updateUser, deleteUser, user: currentUser } = useAuth();
   const { toast } = useToast();
+  const { translations } = useContext(LanguageContext);
 
   // Filter users based on current user's role and store
   const filteredUsers = useMemo(() => {
@@ -178,9 +180,9 @@ const Users = () => {
     <div className="container mx-auto py-6">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Users Management</CardTitle>
+          <CardTitle>{translations.roleManagement}</CardTitle>
           <Button onClick={() => setIsAddModalOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" /> Add User
+            <Plus className="mr-2 h-4 w-4" /> {translations.addUser}
           </Button>
         </CardHeader>
         <CardContent>
@@ -204,14 +206,14 @@ const Users = () => {
                   <TableCell className="text-right">
                     {/* Only show edit button if user can edit this user */}
                     {currentUser && currentUser.id !== user.id && (
-                      <>
-                        <Button variant="ghost" size="icon" onClick={() => handleEditClick(user)}>
+                      <div className="flex space-x-2">
+                        <Button variant="outline" size="icon" onClick={() => handleEditClick(user)}>
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDeleteUser(user.id)}>
+                        <Button variant="destructive" size="icon" onClick={() => handleDeleteUser(user.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
-                      </>
+                      </div>
                     )}
                   </TableCell>
                 </TableRow>
@@ -225,7 +227,7 @@ const Users = () => {
       {isAddModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">Add New User</h2>
+            <h2 className="text-xl font-bold mb-4">{translations.addUser}</h2>
             <form onSubmit={handleAddUser}>
               <div className="space-y-4">
                 <div>
@@ -305,7 +307,7 @@ const Users = () => {
                 <Button variant="outline" type="button" onClick={() => setIsAddModalOpen(false)}>
                   Cancel
                 </Button>
-                <Button type="submit">Add User</Button>
+                <Button type="submit">{translations.addUser}</Button>
               </div>
             </form>
           </div>

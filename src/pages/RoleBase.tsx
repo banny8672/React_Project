@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { LanguageContext } from '@/contexts/LanguageContext';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Table, TableHead, TableHeader, TableRow, TableBody, TableCell } from "@/components/ui/table";
-import { Plus, Save, Trash } from "lucide-react";
+import { Pencil, Plus, Save, Trash } from "lucide-react";
 import { useAuth, User } from '@/contexts/AuthContext';
 import { useToast } from "@/components/ui/use-toast";
 
@@ -66,6 +67,7 @@ export default function RoleBase() {
   const [editingRole, setEditingRole] = useState<Role | null>(null);
   const { users } = useAuth();
   const { toast } = useToast();
+  const { translations } = useContext(LanguageContext);
 
   // Load saved roles from localStorage on component mount
   useEffect(() => {
@@ -158,18 +160,18 @@ export default function RoleBase() {
   return (
     <div>
       <div className="flex flex-wrap justify-between items-center mb-4 sm:mb-6 gap-2">
-        <h2 className="text-xl sm:text-2xl font-semibold">Role Management</h2>
+        <h2 className="text-xl sm:text-2xl font-semibold">{translations.roleManagement}</h2>
         <Button onClick={() => setActiveTab("new-role")}>
           <Plus className="h-4 w-4 mr-2" />
-          Create New Role
+          {translations.createNewRole}
         </Button>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="mb-4">
-          <TabsTrigger value="roles">Roles</TabsTrigger>
-          <TabsTrigger value="new-role">Create New Role</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
+          <TabsTrigger value="roles">{translations.roles}</TabsTrigger>
+          <TabsTrigger value="new-role">{translations.createNewRole}</TabsTrigger>
+          <TabsTrigger value="users">{translations.users}</TabsTrigger>
           {editingRole && <TabsTrigger value="edit-role">Edit Role</TabsTrigger>}
         </TabsList>
 
@@ -209,7 +211,7 @@ export default function RoleBase() {
                             size="sm"
                             onClick={() => handleEditRole(role)}
                           >
-                            Edit
+                            <Pencil className="h-4 w-4" />
                           </Button>
                           {role.id !== 'manager' && role.id !== 'storekeeper' && (
                             <Button

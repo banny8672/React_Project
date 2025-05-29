@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Menu } from 'lucide-react';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 const Sidebar = () => {
     const [storeOpen, setStoreOpen] = useState(true);
@@ -14,6 +15,7 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const { user, hasAccess } = useAuth();
     const isMobile = useIsMobile();
+    const { translations } = useContext(LanguageContext);
 
     // Auto-close sidebar on mobile
     useEffect(() => {
@@ -59,7 +61,7 @@ const Sidebar = () => {
                                 if (isMobile) setSidebarOpen(false);
                             }}
                         >
-                            Dashboard
+                            {translations.dashboard}
                             <svg
                                 className="w-4 h-4 text-gray-500"
                                 fill="none"
@@ -80,7 +82,7 @@ const Sidebar = () => {
                                 if (isMobile) setSidebarOpen(false);
                             }}
                         >
-                            Access
+                            {translations.access}
                             <svg
                                 className="w-4 h-4 text-gray-500"
                                 fill="none"
@@ -101,7 +103,7 @@ const Sidebar = () => {
                                 if (isMobile) setSidebarOpen(false);
                             }}
                         >
-                            Users
+                            {translations.users}
                             <svg
                                 className="w-4 h-4 text-gray-500"
                                 fill="none"
@@ -119,7 +121,7 @@ const Sidebar = () => {
                             onClick={() => setStoreOpen(!storeOpen)}
                             className="w-full text-left font-medium py-2 hover:bg-gray-200 hover:text-gray-800 rounded flex items-center justify-between"
                         >
-                            Store
+                            {translations.store}
                             <svg
                                 className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${storeOpen ? 'rotate-90' : 'rotate-0'}`}
                                 fill="none"
@@ -139,7 +141,7 @@ const Sidebar = () => {
                                         if (isMobile) setSidebarOpen(false);
                                     }}
                                 >
-                                    Product
+                                    {translations.product || "Products"}
                                 </button>
                                 <button 
                                     className="text-left py-1 text-gray-600 hover:text-gray-900 dark:text-white" 
@@ -148,7 +150,7 @@ const Sidebar = () => {
                                         if (isMobile) setSidebarOpen(false);
                                     }}
                                 >
-                                    Add Product
+                                    {translations.addNewProduct}
                                 </button>
                             </div>
                         )}
@@ -159,7 +161,7 @@ const Sidebar = () => {
                             onClick={() => setAnalyticOpen(!analyticOpen)}
                             className="w-full text-left font-medium py-2 hover:bg-gray-200 hover:text-gray-800 rounded flex items-center justify-between"
                         >
-                            Analytic
+                            {translations.analytic}
                             <svg
                                 className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${analyticOpen ? 'rotate-90' : 'rotate-0'}`}
                                 fill="none"
@@ -237,7 +239,7 @@ const Sidebar = () => {
                             onClick={() => setAccountOpen(!accountOpen)}
                             className="w-full text-left font-medium py-2 hover:text-gray-800 hover:bg-gray-200 rounded flex items-center justify-between"
                         >
-                            Account Setting
+                            {translations.accountSetting}
                             <svg
                                 className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${accountOpen ? 'rotate-90' : 'rotate-0'}`}
                                 fill="none"
@@ -275,7 +277,7 @@ const Sidebar = () => {
                             onClick={() => setHelpOpen(!helpOpen)}
                             className="w-full text-left font-medium py-2 hover:text-gray-800 hover:bg-gray-200 rounded flex items-center justify-between"
                         >
-                            Help And Support
+                            {translations.helpAndSupport}
                             <svg
                                 className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${helpOpen ? 'rotate-90' : 'rotate-0'}`}
                                 fill="none"
