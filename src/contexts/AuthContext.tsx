@@ -180,17 +180,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const hasAccess = (pageId: string): boolean => {
     if (!user) return false;
 
+    // Debug log to see what's happening
+    console.log(`Checking access for user: ${user.name}, role: ${user.role}, page: ${pageId}`);
+    
+    // Special case for store admins to access dashboard
+    if (pageId === 'dashboard' && 
+        (user.role.toLowerCase().includes('admin') || user.role.toLowerCase() === 'manager')) {
+      return true;
+    }
+
     // Find the role permission for the current user's role
     const rolePermission = rolePermissions.find(
       rp => rp.name.toLowerCase() === user.role.toLowerCase() || rp.id.toLowerCase() === user.role.toLowerCase()
     );
 
     if (!rolePermission) {
+      console.log(`No role permission found for role: ${user.role}`);
       return false;
     }
 
     // Check if the page is in the allowed pages for this role
     const hasPageAccess = rolePermission.pages.includes(pageId);
+    console.log(`Role: ${user.role}, Page: ${pageId}, Access: ${hasPageAccess}`);
     return hasPageAccess;
   };
 

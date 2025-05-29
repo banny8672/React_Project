@@ -155,7 +155,16 @@ const LoginForm: React.FC = () => {
                 <strong>Manager:</strong> manager@inventory.com / manager123
               </div>
               <div>
-                <strong>Store Keeper:</strong> keeper@inventory.com / keeper123
+                <strong>Store-1-Admin:</strong> store1@inventory.com / store1pass
+              </div>
+              <div>
+                <strong>Store-2-Admin:</strong> store2@inventory.com / store2pass
+              </div>
+              <div>
+                <strong>Store-1-Keeper:</strong> keeper1@inventory.com / keeper1pass
+              </div>
+              <div>
+                <strong>Store-2-Keeper:</strong> keeper2@inventory.com / keeper2pass
               </div>
             </div>
           </div>

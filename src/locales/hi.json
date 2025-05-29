@@ -28,5 +28,22 @@
     "store": "स्टोर",
     "analytic": "विश्लेषण",
     "accountSetting": "खाता सेटिंग",
-    "helpAndSupport": "सहायता और समर्थन"
+    "helpAndSupport": "सहायता और समर्थन",
+    "totalProducts": "कुल उत्पाद",
+    "inventoryValue": "इन्वेंटरी मूल्य",
+    "lowStockItems": "कम स्टॉक वाले आइटम",
+    "userRole": "उपयोगकर्ता भूमिका",
+    "productsByCategory": "श्रेणी के अनुसार उत्पाद",
+    "inventoryValueByStore": "स्टोर के अनुसार इन्वेंटरी मूल्य",
+    "topProductsByValue": "मूल्य के अनुसार शीर्ष उत्पाद",
+    "recentProducts": "हाल के उत्पाद",
+    "totalValueOfAllProducts": "सभी उत्पादों का कुल मूल्य",
+    "service": "सेवा",
+    "contactUs": "संपर्क करें",
+    "affiliateProgram": "सहबद्ध कार्यक्रम",
+    "aboutUs": "हमारे बारे में",
+    "subscribeToNewsletter": "न्यूज़लेटर की सदस्यता लें",
+    "send": "भेजें",
+    "enterYourEmailHere": "अपना ईमेल यहां दर्ज करें",
+    "shoppingDescription": "खरीदारी की आसानी हमारा मुख्य फोकस है। शक्तिशाली खोज सुविधाओं और अनुकूलन योग्य फिल्टर के साथ, आप आसानी से वे उत्पाद पा सकते हैं जिन्हें आप खोज रहे हैं।"
 }

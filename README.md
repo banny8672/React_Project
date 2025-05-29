@@ -46,7 +46,10 @@ This project is built with:
 ## Demo Accounts:
 
 - Manager: manager@inventory.com / manager123
-- Store Keeper: keeper@inventory.com / keeper123
+- Store-1-Admin: store1@inventory.com / store1pass
+- Store-2-Admin: store2@inventory.com / store2pass
+- Store-1-Keeper: keeper1@inventory.com / keeper1pass
+- Store-2-Keeper: keeper2@inventory.com / keeper2pass
 
 
 ## Screenshots:

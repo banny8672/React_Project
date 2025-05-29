@@ -28,5 +28,22 @@
     "store": "Store",
     "analytic": "Analytic",
     "accountSetting": "Account Setting",
-    "helpAndSupport": "Help And Support"
+    "helpAndSupport": "Help And Support",
+    "totalProducts": "Total Products",
+    "inventoryValue": "Inventory Value",
+    "lowStockItems": "Low Stock Items",
+    "userRole": "User Role",
+    "productsByCategory": "Products by Category",
+    "inventoryValueByStore": "Inventory Value by Store",
+    "topProductsByValue": "Top Products by Value",
+    "recentProducts": "Recent Products",
+    "totalValueOfAllProducts": "Total value of all products",
+    "service": "Service",
+    "contactUs": "Contact Us",
+    "affiliateProgram": "Affiliate Program",
+    "aboutUs": "About Us",
+    "subscribeToNewsletter": "Subscribe to Newsletter",
+    "send": "Send",
+    "enterYourEmailHere": "Enter Your Email Here",
+    "shoppingDescription": "Ease of shopping is our main focus. With powerful search features and customizable filters, you can easily find the products you are looking for."
 }

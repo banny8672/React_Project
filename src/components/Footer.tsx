@@ -1,6 +1,10 @@
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { useContext } from 'react';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 const Footer = () => {
+  const { translations } = useContext(LanguageContext);
+  
   return (
     <footer className="bg-white text-gray-700 pt-10 pb-5 border-t px-20 dark:bg-gray-800 rounded-t-3xl">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8">
@@ -10,7 +14,7 @@ const Footer = () => {
             <h1 className="text-xl font-bold dark:text-white">Opion</h1>
           </div>
           <p className="text-sm dark:text-white">
-            Ease of shopping is our main focus. With powerful search features and customizable filters, you can easily find the products you are looking for.
+            {translations.shoppingDescription}
           </p>
           <div className="flex space-x-4 mt-4 text-2xl dark:text-white">
             <FaFacebook className="hover:text-blue-600 cursor-pointer" />
@@ -18,32 +22,32 @@ const Footer = () => {
             <FaLinkedin className="hover:text-blue-700 cursor-pointer" />
           </div>
           <div className="mt-6 dark:text-white">
-            <p className="font-semibold">Subscribe to Newsletter</p>
+            <p className="font-semibold">{translations.subscribeToNewsletter}</p>
             <div className="flex mt-2">
               <input
                 type="email"
-                placeholder="Enter Your Email Here"
+                placeholder={translations.enterYourEmailHere}
                 className="pl-2 pr-3 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
               />
-              <button className="bg-black text-white px-4 rounded-r-md text-sm">Send</button>
+              <button className="bg-black text-white px-4 rounded-r-md text-sm">{translations.send}</button>
             </div>
           </div>
         </div>
 
         <div className="dark:text-white">
-          <h2 className="font-bold mb-3">Get Started</h2>
+          <h2 className="font-bold mb-3">{translations.service}</h2>
           <ul className="space-y-2 text-sm">
-            <li>Service</li>
-            <li>Contact Us</li>
-            <li>Affiliate Program</li>
-            <li>About Us</li>
+            <li>{translations.service}</li>
+            <li>{translations.contactUs}</li>
+            <li>{translations.affiliateProgram}</li>
+            <li>{translations.aboutUs}</li>
           </ul>
         </div>
 
         <div className="dark:text-white">
           <h2 className="font-bold mb-3">Get Started</h2>
           <ul className="space-y-2 text-sm">
-            <li>Dashboard</li>
+            <li>{translations.dashboard}</li>
             <li>Platform</li>
             <li>Workout Library</li>
             <li>App Design</li>
@@ -53,7 +57,7 @@ const Footer = () => {
         <div className="dark:text-white">
           <h2 className="font-bold mb-3">Get Started</h2>
           <ul className="space-y-2 text-sm">
-            <li>About Us</li>
+            <li>{translations.aboutUs}</li>
           </ul>
         </div>
       </div>
