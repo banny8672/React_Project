@@ -1,32 +1,30 @@
 import { useState } from 'react';
-import {
-  Home,
-  BarChart3,
-  Package,
-  DollarSign,
-  CreditCard,
-  Settings,
-  HelpCircle,
-  Upload,
-} from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useNavigate } from 'react-router-dom';
+import { useProducts } from '@/contexts/ProductContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function AddNewProduct() {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     productName: '',
     category: '',
+    store: user?.store !== 'all' ? user?.store || '' : '',
     description: '',
     tags: '',
     price: '',
     discount: '',
     discountCategory: ''
   });
-  const [previewImage, setPreviewImage] = useState(null);
-  const [thumbnailImage, setThumbnailImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [thumbnailImage, setThumbnailImage] = useState<string | null>(null);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
+  const { addProduct } = useProducts();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -34,17 +32,18 @@ export default function AddNewProduct() {
     }));
   };
 
-  const handleImageDrop = (e, type) => {
+  const handleImageDrop = (e: React.DragEvent<HTMLDivElement>, type: 'preview' | 'thumbnail') => {
     e.preventDefault();
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       const file = files[0];
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const result = e.target?.result as string;
         if (type === 'preview') {
-          setPreviewImage(e.target.result);
+          setPreviewImage(result);
         } else {
-          setThumbnailImage(e.target.result);
+          setThumbnailImage(result);
         }
       };
       reader.readAsDataURL(file);
@@ -77,15 +76,36 @@ export default function AddNewProduct() {
     input.click();
   };
 
+  const { canAccessStore } = useAuth();
   const handleSave = () => {
-    console.log('Product saved:', formData);
-    alert('Product saved successfully!');
+    // For non-manager roles, use their assigned store
+    const storeValue = canAccessStore('store-selection') 
+      ? formData.store 
+      : user?.store || '';
+    
+    if (formData.productName && formData.category && formData.price && storeValue) {
+      addProduct({
+        name: formData.productName.trim(),
+        category: formData.category,
+        store: storeValue,
+        price: Number(formData.price) || 0,
+        stock: 0, // Default value
+        description: formData.description.trim() || 'No description provided'
+      });
+
+      alert('Product saved successfully!');
+      navigate('/products');
+    } else {
+      alert('Please fill in all required fields: Name, Category, Price' + 
+        (canAccessStore('store-selection') ? ', and Store' : ''));
+    }
   };
 
   const handleDiscardChanges = () => {
     setFormData({
       productName: '',
       category: '',
+      store: '',
       description: '',
       tags: '',
       price: '',
@@ -152,6 +172,24 @@ export default function AddNewProduct() {
                             <option value="sports">Sports</option>
                           </select>
                         </div>
+                        {/* Store selection field - only visible for manager role */}
+                        {useAuth().canAccessStore('store-selection') && (
+                          <div>
+                            <label className="block text-sm font-medium mb-1 sm:mb-2">Store</label>
+                            <select
+                              name="store"
+                              value={formData.store}
+                              onChange={handleInputChange}
+                              className="pl-2 pr-3 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                            >
+                              <option value="">Select Store</option>
+                              <option value="Store-1">Store-1</option>
+                              <option value="Store-2">Store-2</option>
+                              <option value="Store-3">Store-3</option>
+                              <option value="Store-4">Store-4</option>
+                            </select>
+                          </div>
+                        )}
                         <div>
                           <label className="block text-sm font-medium mb-1 sm:mb-2">Description</label>
                           <textarea

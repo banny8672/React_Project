@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
@@ -6,6 +6,7 @@ import { Moon, Sun, LogOut, Search } from 'lucide-react';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const isMobile = useIsMobile();
+  const { language, changeLanguage, translations } = useContext(LanguageContext);
 
   if (!user) {
     return <>{children}</>;
@@ -62,6 +64,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <LogOut className="w-4 h-4 sm:mr-2" />
                 <span className="hidden sm:inline">Logout</span>
               </Button>
+
+              <select
+                onChange={(e) => changeLanguage(e.target.value)}
+                value={language}
+                className="form-select w-full p-2 rounded"
+              >
+                <option value="en">{translations.en}</option>
+                <option value="hi">{translations.hi}</option>
+              </select>
+
             </div>
           </div>
         </div>

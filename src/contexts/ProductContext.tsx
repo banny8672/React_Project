@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export interface Product {
@@ -8,6 +7,7 @@ export interface Product {
   price: number;
   stock: number;
   description: string;
+  store: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,6 +31,7 @@ const initialProducts: Product[] = [
     price: 99.99,
     stock: 25,
     description: 'High-quality wireless headphones with noise cancellation',
+    store: 'Store-1',
     createdAt: new Date('2024-01-15'),
     updatedAt: new Date('2024-01-15')
   },
@@ -41,6 +42,7 @@ const initialProducts: Product[] = [
     price: 12.99,
     stock: 150,
     description: 'Ceramic coffee mug with ergonomic handle',
+    store: 'Store-2',
     createdAt: new Date('2024-01-10'),
     updatedAt: new Date('2024-01-10')
   },
@@ -51,6 +53,7 @@ const initialProducts: Product[] = [
     price: 79.99,
     stock: 8,
     description: 'Lightweight running shoes for daily training',
+    store: 'Store-3',
     createdAt: new Date('2024-01-20'),
     updatedAt: new Date('2024-01-20')
   },
@@ -61,6 +64,7 @@ const initialProducts: Product[] = [
     price: 24.99,
     stock: 75,
     description: 'Set of 3 premium notebooks with lined pages',
+    store: 'Store-4',
     createdAt: new Date('2024-01-12'),
     updatedAt: new Date('2024-01-12')
   }
@@ -73,7 +77,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     // Load products from localStorage or use initial products
     const storedProducts = localStorage.getItem('inventory_products');
     if (storedProducts) {
-      const parsedProducts = JSON.parse(storedProducts).map((p: any) => ({
+      const parsedProducts = JSON.parse(storedProducts).map((p: Product) => ({
         ...p,
         createdAt: new Date(p.createdAt),
         updatedAt: new Date(p.updatedAt)
@@ -100,8 +104,8 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const updateProduct = (id: string, updates: Partial<Product>) => {
-    setProducts(prev => prev.map(product => 
-      product.id === id 
+    setProducts(prev => prev.map(product =>
+      product.id === id
         ? { ...product, ...updates, updatedAt: new Date() }
         : product
     ));
@@ -116,12 +120,12 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   return (
-    <ProductContext.Provider value={{ 
-      products, 
-      addProduct, 
-      updateProduct, 
-      deleteProduct, 
-      getProduct 
+    <ProductContext.Provider value={{
+      products,
+      addProduct,
+      updateProduct,
+      deleteProduct,
+      getProduct
     }}>
       {children}
     </ProductContext.Provider>

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,7 +11,13 @@ import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products";
 import NotFound from "./pages/NotFound";
 import AddNewProduct from "./pages/AddNewProduct";
+import EditProduct from "./pages/EditProduct";
+import RoleBase from "./pages/RoleBase";
+import Users from "./pages/Users";
+import { ProductProvider } from "./contexts/ProductContext";
+
 import { useEffect, useState } from "react";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 const queryClient = new QueryClient();
 
@@ -24,12 +29,12 @@ const AccessDenied = () => (
 
 const ProtectedRoute = ({
   children,
-  roles,
+  pageId,
 }: {
   children: React.ReactNode;
-  roles?: string[];
+  pageId?: string;
 }) => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, hasAccess } = useAuth();
 
   if (isLoading) {
     return (
@@ -43,7 +48,7 @@ const ProtectedRoute = ({
     return <LoginForm />;
   }
 
-  if (roles && !roles.includes(user.role)) {
+  if (pageId && !hasAccess(pageId)) {
     return <AccessDenied />;
   }
 
@@ -71,7 +76,7 @@ const AppRoutes = () => {
       <Route
         path="/dashboard"
         element={
-          <ProtectedRoute roles={["Manager"]}>
+          <ProtectedRoute pageId="dashboard">
             <Dashboard />
           </ProtectedRoute>
         }
@@ -79,16 +84,40 @@ const AppRoutes = () => {
       <Route
         path="/products"
         element={
-          <ProtectedRoute roles={["Manager", "Store Keeper"]}>
+          <ProtectedRoute pageId="products">
             <Products />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/access"
+        element={
+          <ProtectedRoute pageId="access">
+            <RoleBase />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute pageId="users">
+            <Users />
           </ProtectedRoute>
         }
       />
       <Route
         path="/add-product"
         element={
-          <ProtectedRoute roles={["Manager", "Store Keeper"]}>
+          <ProtectedRoute pageId="add-product">
             <AddNewProduct />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-product/:id"
+        element={
+          <ProtectedRoute pageId="products">
+            <EditProduct />
           </ProtectedRoute>
         }
       />
@@ -98,19 +127,23 @@ const AppRoutes = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <ThemeProvider>
-        <AuthProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </AuthProvider>
-      </ThemeProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <LanguageProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <ProductProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <AppRoutes />
+              </BrowserRouter>
+            </ProductProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </LanguageProvider>
 );
 
 export default App;

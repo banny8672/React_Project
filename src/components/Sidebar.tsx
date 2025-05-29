@@ -12,7 +12,7 @@ const Sidebar = () => {
     const [helpOpen, setHelpOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, hasAccess } = useAuth();
     const isMobile = useIsMobile();
 
     // Auto-close sidebar on mobile
@@ -51,7 +51,7 @@ const Sidebar = () => {
                 dark:text-white flex flex-col p-4 overflow-y-auto`}
             >
                 <nav className="flex flex-col space-y-2 text-gray-700 text-sm dark:text-white hover:text-gray-800">
-                    {user.role === 'Manager' &&
+                    {hasAccess('dashboard') &&
                         <button 
                             className="text-left font-medium py-2 hover:bg-gray-200 hover:text-gray-800 rounded flex items-center justify-between" 
                             onClick={() => {
@@ -60,6 +60,48 @@ const Sidebar = () => {
                             }}
                         >
                             Dashboard
+                            <svg
+                                className="w-4 h-4 text-gray-500"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                viewBox="0 0 24 24"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    }
+
+                    {hasAccess('access') &&
+                        <button 
+                            className="text-left font-medium py-2 hover:bg-gray-200 hover:text-gray-800 rounded flex items-center justify-between" 
+                            onClick={() => {
+                                navigate('/access');
+                                if (isMobile) setSidebarOpen(false);
+                            }}
+                        >
+                            Access
+                            <svg
+                                className="w-4 h-4 text-gray-500"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                viewBox="0 0 24 24"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    }
+                    
+                    {hasAccess('users') &&
+                        <button 
+                            className="text-left font-medium py-2 hover:bg-gray-200 hover:text-gray-800 rounded flex items-center justify-between" 
+                            onClick={() => {
+                                navigate('/users');
+                                if (isMobile) setSidebarOpen(false);
+                            }}
+                        >
+                            Users
                             <svg
                                 className="w-4 h-4 text-gray-500"
                                 fill="none"
@@ -150,7 +192,7 @@ const Sidebar = () => {
                         )}
                     </div>
 
-                    {user.role === 'Manager' &&
+                    {hasAccess('finances') &&
                         <div>
                             <button
                                 onClick={() => setFinanceOpen(!financeOpen)}
